@@ -27,22 +27,26 @@ Y0 = [r0 0 0 0 v0 0];
 % Set options
 options = odeset( 'RelTol', 1e-12, 'AbsTol', 1e-12 );
 
+%% INTEGRATION with ODE113
 % Perform the integration
 [ T, Y ] = ode113( @(t,y)ode_keplerian_orbit(t,y,mu), tspan, Y0, options);
 r = [Y(:,1),Y(:,2),Y(:,3)];
 v = [Y(:,4),Y(:,5),Y(:,6)];
 
+%% VECTORS H and E calculation
 % Angular momentum vector = h
 h = cross(r,v);
 
 % Eccentricity vector
 ev = (cross(v,h))./mu-r/norm(r);
 
+%% GRAPH of the trajectory
 % Plot 
 figure(1)
 plot(T,r(:,1))
 title('Trajectory')
 
+%% 3D PLOT of the trajectory
 % Draw planet
 figure(2)
 image_file = 'http://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Land_ocean_ice_2048.jpg/1024px-Land_ocean_ice_2048.jpg';
@@ -54,7 +58,6 @@ globe = surf(x, y, -z, 'FaceColor', 'none', 'EdgeColor', 0.5*[1 1 1]);
 cdata = imread(image_file);
 set(globe, 'FaceColor', 'texturemap', 'CData', cdata, 'FaceAlpha', alpha, 'EdgeColor', 'none');
 
-
 % Aspect
 hold on
 axis equal
@@ -64,9 +67,6 @@ xlabel('rx [L]');
 ylabel('ry [L]');
 zlabel('rz [L]');
 title('Orbit');
-
-% Earth aspect
-
 
 % Plot the results
 hold on
