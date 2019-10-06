@@ -63,7 +63,7 @@ axis([-2*a,2*a,-2*a,2*a,-2*R_E,2*R_E])
 xlabel('rx [L]');
 ylabel('ry [L]');
 zlabel('rz [L]');
-title('Orbit');
+title('Keplerian orbit');
 
 % Earth aspect
 
